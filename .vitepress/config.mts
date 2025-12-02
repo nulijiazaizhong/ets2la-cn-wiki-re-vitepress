@@ -26,9 +26,10 @@ export default defineConfig({
     ],
 
     sidebar: {
-      '/docs/': set_sidebar('docs'),
-      '/author/': set_sidebar('author'),
-      '/sponsored/': set_sidebar('sponsored'),
+      '/docs/base/': set_sidebar('/docs/base/'),
+      '/docs/advanced/': set_sidebar('/docs/advanced/'),
+      '/author/': set_sidebar('/author/'),
+      '/sponsored/': set_sidebar('/sponsored/'),
       '/': set_sidebar('')
     },
 
