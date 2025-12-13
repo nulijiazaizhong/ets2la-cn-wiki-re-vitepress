@@ -23,10 +23,13 @@ export default defineConfig({
             ],
         },
       { text: '作者', link: '/author/' },
+       { text: '简介', link: '/docs/Introduction/' },
+        { text: '关于', link: '/docs/about/' },
       { text: '赞助名单', link: '/sponsored/' }
     ],
 
     sidebar: {
+      '/docs/bug/': set_sidebar('/docs/bug/'),
       '/docs/base/': set_sidebar('/docs/base/'),
       '/docs/advanced/': set_sidebar('/docs/advanced/'),
       '/author/': set_sidebar('/author/'),

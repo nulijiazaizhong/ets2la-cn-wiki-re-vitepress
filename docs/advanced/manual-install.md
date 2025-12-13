@@ -31,11 +31,13 @@ uv sync
 ```angular2html
 uv run main.py
 ```
-::: danger 危险
+::: danger 注意
 如果你无法通过 `git clone https://github.com/ETS2LA/Euro-Truck-Simulator-2-Lane-Assist.git` 拉取数据
 可尝试使用 `git clone https://proxy-gh.ets2la.cn/github.com/ETS2LA/Euro-Truck-Simulator-2-Lane-Assist.git` 来拉取数据
 PS：该方法拉取的数据较慢，需要耐心等待，但保证可以拉取到数据
 
+:::
+    
 ## 4. 简化启动
 可以通过创建批处理文件简化启动流程 在 `Euro-Truck-Simulator-2-Lane-Assist` 文件夹内新建文本文档，将以下内容复制到文本文档中，将文本文档重命名为 `start.bat` (该步骤需要在资源管理器中打开文件后缀显示才能更改成功)
 ```angular2html
