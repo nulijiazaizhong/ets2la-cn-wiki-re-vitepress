@@ -33,7 +33,7 @@ uv run main.py
 ```
 ::: danger 注意
 如果你无法通过 `git clone https://github.com/ETS2LA/Euro-Truck-Simulator-2-Lane-Assist.git` 拉取数据
-可尝试使用 `git clone https://proxy-gh.ets2la.cn/github.com/ETS2LA/Euro-Truck-Simulator-2-Lane-Assist.git` 来拉取数据
+可尝试使用 `git clone https://gh-proxy.ets2la.cn/github.com/ETS2LA/Euro-Truck-Simulator-2-Lane-Assist.git` 来拉取数据
 PS：该方法拉取的数据较慢，需要耐心等待，但保证可以拉取到数据
 
 :::

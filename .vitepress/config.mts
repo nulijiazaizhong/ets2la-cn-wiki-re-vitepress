@@ -23,8 +23,8 @@ export default defineConfig({
             ],
         },
       { text: '作者', link: '/author/' },
-       { text: '简介', link: '/docs/Introduction/' },
-        { text: '关于', link: '/docs/about/' },
+       { text: '简介', link: '/Introduction/' },
+        { text: '关于', link: '/about/' },
       { text: '赞助名单', link: '/sponsored/' }
     ],
 
