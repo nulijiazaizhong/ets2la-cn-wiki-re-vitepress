@@ -12,28 +12,18 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: '主页', link: '/' },
-        {
-            text: '文档', items: [
-                {text: "基础", link: "/docs/base/install"},
-                { // 带分割线的导航栏
-                    items:[
-                        {text: "进阶", link: "/docs/advanced/manual-install"},
-                    ],
-                },
-            ],
-        },
+      { text: '文档', link: '/version/v3/docs/' },
       { text: '作者', link: '/author/' },
-       { text: '简介', link: '/Introduction/' },
         { text: '关于', link: '/about/' },
       { text: '赞助名单', link: '/sponsored/' }
     ],
 
     sidebar: {
-      '/docs/bug/': set_sidebar('/docs/bug/'),
-      '/docs/base/': set_sidebar('/docs/base/'),
-      '/docs/advanced/': set_sidebar('/docs/advanced/'),
+      '/version/v3/docs/': set_sidebar('/version/v3/docs/'),
       '/author/': set_sidebar('/author/'),
       '/sponsored/': set_sidebar('/sponsored/'),
+      '/Introduction/': set_sidebar('/Introduction/'),
+      '/about/': set_sidebar('/about/'),
       '/': set_sidebar('')
     },
 

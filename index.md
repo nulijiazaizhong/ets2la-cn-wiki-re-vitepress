@@ -12,7 +12,7 @@ hero:
   actions:
     - theme: brand
       text: 快速开始
-      link: /docs/
+      link: /version/v3/docs/
     - theme: alt
       text: GitHub 仓库
       link: https://github.com/ETS2LA/Euro-Truck-Simulator-2-Lane-Assist

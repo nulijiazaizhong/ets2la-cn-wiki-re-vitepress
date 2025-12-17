@@ -8,13 +8,30 @@ const WHITE_LIST: readonly string[] = [
   "node_modules",
   ".idea",
   "assets",
+  "version",
+  "agreement.md",
 ];
+
+const FOLDER_MAP: Record<string, string> = {
+  "base": "基础",
+  "advanced": "高级",
+  "bug": "问题",
+  "mobile": "移动设备访问"
+};
+
+const SORT_ORDER: Record<string, number> = {
+  "base": 1,
+  "advanced": 2,
+  "bug": 3
+};
+
+const COLLAPSED_FOLDERS = ["advanced", "bug"];
 
 type SidebarItemEx = {
   text: string;
   link?: string;
   items?: SidebarItemEx[];
-  collapsible?: boolean;
+  collapsed?: boolean;
 };
 
 const isDirectory = (p: string): boolean => fs.lstatSync(p).isDirectory();
@@ -38,22 +55,34 @@ const getTitleFromMarkdown = (fp: string): string | null => {
 };
 
 function getList(params: string[], path1: string, pathname: string): SidebarItemEx[] {
+  // Sort params based on SORT_ORDER
+  params.sort((a, b) => {
+    const orderA = SORT_ORDER[a] || 100;
+    const orderB = SORT_ORDER[b] || 100;
+    if (orderA !== orderB) return orderA - orderB;
+    return a.localeCompare(b);
+  });
+
   const res: SidebarItemEx[] = [];
-  for (let file in params) {
-    const dir = path.join(path1, params[file]);
+  for (let file of params) {
+    const dir = path.join(path1, file);
     const isDir = isDirectory(dir);
     if (isDir) {
       const files = fs.readdirSync(dir);
       const idx = path.join(dir, "index.md");
-      const groupTitle = fs.existsSync(idx) && !isDirectory(idx) ? getTitleFromMarkdown(idx) || params[file] : params[file];
+      // Use mapped name if available, otherwise try markdown title or fallback to filename
+      const groupTitle = FOLDER_MAP[file] || (fs.existsSync(idx) && !isDirectory(idx) ? getTitleFromMarkdown(idx) || file : file);
+      
+      const isCollapsed = COLLAPSED_FOLDERS.includes(file);
+
       res.push({
         text: groupTitle,
-        collapsible: true,
-        items: getList(files, dir, `${pathname}/${params[file]}`),
+        collapsed: isCollapsed,
+        items: getList(files, dir, `${pathname}/${file}`),
       });
     } else {
-      const name = path.basename(params[file]);
-      const suffix = path.extname(params[file]);
+      const name = path.basename(file);
+      const suffix = path.extname(file);
       if (suffix !== ".md") {
         continue;
       }
@@ -73,4 +102,3 @@ export const set_sidebar = (pathname: string): SidebarItemEx[] => {
   const items = intersections(files, WHITE_LIST as string[]);
   return getList(items, dirPath, pathname);
 };
-
