@@ -22,7 +22,11 @@ const FOLDER_MAP: Record<string, string> = {
 const SORT_ORDER: Record<string, number> = {
   "base": 1,
   "advanced": 2,
-  "bug": 3
+  "bug": 3,
+  "install.md": 10,
+  "use.md": 20,
+  "plugins.md": 30,
+  "page.md": 40
 };
 
 const COLLAPSED_FOLDERS = ["advanced", "bug"];
@@ -67,6 +71,9 @@ function getList(params: string[], path1: string, pathname: string): SidebarItem
   for (let file of params) {
     const dir = path.join(path1, file);
     const isDir = isDirectory(dir);
+    // Ensure pathname doesn't end with a slash before appending
+    const nextPathname = pathname.endsWith('/') ? `${pathname}${file}` : `${pathname}/${file}`;
+    
     if (isDir) {
       const files = fs.readdirSync(dir);
       const idx = path.join(dir, "index.md");
@@ -78,7 +85,7 @@ function getList(params: string[], path1: string, pathname: string): SidebarItem
       res.push({
         text: groupTitle,
         collapsed: isCollapsed,
-        items: getList(files, dir, `${pathname}/${file}`),
+        items: getList(files, dir, nextPathname),
       });
     } else {
       const name = path.basename(file);
@@ -89,7 +96,7 @@ function getList(params: string[], path1: string, pathname: string): SidebarItem
       const title = getTitleFromMarkdown(dir) || name;
       res.push({
         text: title,
-        link: `${pathname}/${name}`,
+        link: nextPathname,
       });
     }
   }

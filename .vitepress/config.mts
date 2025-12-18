@@ -29,6 +29,11 @@ export default defineConfig({
 
     outline: 'deep',
 
+    editLink: {
+      pattern: 'https://github.com/ETS2LA-CN/ets2la-cn-wiki-re-vitepress/edit/main/:path',
+      text: '发现文档有问题？在 GitHub 上编辑此页'
+    },
+
     socialLinks: [
       { icon: 'github', link: 'https://github.com/ETS2LA/Euro-Truck-Simulator-2-Lane-Assist' },
       { icon: 'discord', link: 'https://ets2la.com/discord' },
