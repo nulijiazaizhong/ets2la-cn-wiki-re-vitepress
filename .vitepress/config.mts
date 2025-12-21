@@ -6,6 +6,9 @@ export default defineConfig({
   title: "ETS2LA 中文维基",
   description: "ETS2LA 的中文文档",
   ignoreDeadLinks: true,
+  head: [
+    ['link', { rel: 'icon', href: '/image/ets2la-cn.png' }]
+  ],
   themeConfig: {
       siteTitle: "ETS2LA 中文维基",
       logo: "/image/svg/logo.svg",
