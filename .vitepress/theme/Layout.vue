@@ -3,12 +3,15 @@
 import DefaultTheme from 'vitepress/theme'
 import SponsorModalMount from './components/SponsorModalMount.vue'
 import { onMounted, watch, onUnmounted } from 'vue'
-import { useRoute } from 'vitepress'
+import { useRoute, useData } from 'vitepress'
 import mediumZoom from 'medium-zoom'
 
 // 保存当前的 medium-zoom 实例，便于路由切换时卸载并重新挂载
 let zoom: ReturnType<typeof mediumZoom> | null = null
 let uptimeTimer: number | null = null
+
+const { theme } = useData()
+const route = useRoute()
 
 const updateUptime = () => {
   const el = document.getElementById('site-uptime')
@@ -23,6 +26,37 @@ const updateUptime = () => {
   const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
   
   el.innerText = `站点已运行${days}天 ${hours}小时 ${minutes}分钟`
+}
+
+const updateVersionNav = () => {
+  const isV4 = route.path.includes('/version/v4/')
+  const headerText = isV4 ? 'v4' : 'v3'
+  
+  // 1. 尝试修改响应式数据 (如果 theme.nav 是响应式的)
+  try {
+    if (theme.value.nav) {
+      // 查找包含 v3 或 v4 的导航项
+      const item = theme.value.nav.find((i: any) => i.text && (i.text.includes('v3') || i.text.includes('v4')))
+      if (item) {
+        item.text = headerText
+      }
+    }
+  } catch (e) {
+    // 忽略错误
+  }
+
+  // 2. 强制 DOM 更新（作为兜底，确保 UI 变化）
+  setTimeout(() => {
+    // 查找导航栏上的版本菜单按钮
+    const elements = document.querySelectorAll('.VPNavBarMenuGroup .text')
+    elements.forEach(el => {
+      const text = el.textContent?.trim()
+      // 只要包含 v3 或 v4 就更新，不再依赖 "版本" 前缀
+      if (text && (text.includes('v3') || text.includes('v4'))) {
+        el.textContent = headerText
+      }
+    })
+  }, 100)
 }
 
 const apply = () => {
@@ -58,12 +92,12 @@ const apply = () => {
   })
 }
 
-const route = useRoute()
 onMounted(() => {
   // 初次挂载后异步应用，确保文档图片已渲染
   requestAnimationFrame(() => {
     apply()
     updateUptime()
+    updateVersionNav()
   })
   uptimeTimer = window.setInterval(updateUptime, 60000)
 })
@@ -72,7 +106,10 @@ watch(() => route.path, () => {
   // 路由变更时重新应用放大绑定
   apply()
   // 路由变更也更新一下时间
-  setTimeout(updateUptime, 100)
+  setTimeout(() => {
+    updateUptime()
+    updateVersionNav()
+  }, 100)
 })
 
 onUnmounted(() => {

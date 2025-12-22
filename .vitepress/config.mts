@@ -21,7 +21,7 @@ export default defineConfig({
         { text: '关于', link: '/about/' },
       { text: '赞助名单', link: '/sponsored/' },
       {
-        text: ' v3',
+        text: 'v3',
         items: [
           { text: 'v3 (当前)', link: '/version/v3/docs/' },
           { text: 'v4 (重写中)', link: '/version/v4/' }
