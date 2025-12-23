@@ -15,9 +15,8 @@ layout: doc
  ### 2.复杂方法
 在 ETS2LA 安装目录中打开`activate.bat`文件并依次运行以下代码即可。
 ```angular2html
+cd app
 git fetch origin main
-```
-```angular2html
 git checkout origin/main
 ```
 直到出现以下提示代表成功，此时再次更新就可以了。
